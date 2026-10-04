@@ -21,7 +21,14 @@ create_py() {
     fi
 
     # Create the file with a Python shebang
-    if echo "#!/usr/bin/env python3" >"$file"; then
+    if cat >"$file" <<"EOF"; then
+#!/usr/bin/env python3
+
+def main():
+  ...
+      
+main()
+EOF
       chmod u+x "$file" # make it executable for the user
       echo "Successfully created: $file"
       created_files+=("$file") # remember it for the summary
