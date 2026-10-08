@@ -27,7 +27,8 @@ create_py() {
 def main():
   ...
       
-main()
+if __name__ == "__main__":
+  main()
 EOF
       chmod u+x "$file" # make it executable for the user
       echo "Successfully created: $file"
