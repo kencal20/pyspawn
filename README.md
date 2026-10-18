@@ -1,37 +1,38 @@
-# create_py — Batch Create Executable Python Files
+# Python Toolkit (`pyspawn`)
 
-A small Bash utility that creates new Python files with a proper shebang (`#!/usr/bin/env python3`) and makes them executable. Useful when starting multiple practice scripts or project files at once.
+A collection of lightweight utilities (in both **Python** and **Bash**) designed to quickly spin up new Python scripts complete with proper shebangs (`#!/usr/bin/env python3`), standard boilerplate code, and user-executable permissions.
+
+---
+
+## Utilities Included
+
+1. **`pyspawn.py` (Python Core)** — Recommended core script for bootstrapping `.py` files using Python itself.
+2. **`python_toolkit.sh` (Bash Version)** — The original shell script version for POSIX environments.
 
 ---
 
 ## Features
 
-- Create one or many `.py` files in a single command
-- Two usage modes:
-  1. **Arguments mode** — pass filenames directly
-  2. **List-file mode** — feed a text file containing one filename per line
-- Automatically skips:
-  - Files that already exist (no overwrites)
-  - Names that do not end in `.py`
-- Adds the standard Python shebang
-- Sets the user-executable bit (`chmod u+x`)
-- Prints a clear summary of every file that was created
+- **Flexible Input Modes**:
+  1. **Argument Mode** — Pass one or more filenames directly via the command line.
+  2. **Interactive List Mode** — Run with no arguments to read filenames line-by-line from a text file.
+- **Safety Checks**:
+  - Automatically skips files that already exist to prevent accidental overwrites.
+  - Validates that target names end with `.py`.
+- **Automatic Setup**:
+  - Injects a standard Python template with a `main()` function block.
+  - Grants executable permissions automatically (`chmod u+x` / `0o755`).
+- **Summary Report**: Prints a clean breakdown of all successfully created files at the end.
 
 ---
 
-## Requirements
+## Installation & Setup
 
-- Bash 4+ (uses arrays and `[[ ]]`)
-- Write permission in the current directory
-
----
-
-## Installation
+Make both scripts executable and optionally link them to your path:
 
 ```bash
-# Make the script executable (only needed once)
-chmod +x create_py.sh
+# Make them executable
+chmod +x pyspawn.py python_toolkit.sh
 
-# Optional: place it somewhere on your PATH
-mkdir -p ~/bin
-cp create_py.sh ~/bin/create_py
+# Example: Link the Python version globally as 'pyspawn'
+sudo ln -sf "$(pwd)/pyspawn.py" /usr/local/bin/pyspawn
