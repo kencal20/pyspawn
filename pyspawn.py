@@ -12,14 +12,15 @@
 
 import os
 import sys
+import textwrap
 
 
 def create_from_file():
     valid_files = []
     filename = input("What is the name of the file that has the .py files: ")
     if not filename:
-        print("filename field cannot be ledt empty")
-        return
+        print("filename field cannot be left empty")
+        return []
     try:
         with open(filename) as file:
             for line in file:
@@ -34,27 +35,32 @@ def create_from_file():
 
     except (FileNotFoundError, OSError):
         print(f"file {filename} not found or is corrupted")
-        return
+        return []
 
 
 def create_project(filename):
+    if os.path.exists(filename):
+        print(f"Skipping '{filename}': File already exists")
+        return False
 
-    template = """#!/usr/bin/env python3
+    template = textwrap.dedent("""#!/usr/bin/env python3
         
 def main():
     print("Hello, world")
 
 if __name__=="__main__":
     main()
-    """
+    """)
 
     try:
         with open(filename, "w") as file:
             file.write(template)
 
         os.chmod(filename, 0o755)
+        return True
     except FileExistsError:
         print("File already exist try another name")
+        return False
 
 
 def main():
